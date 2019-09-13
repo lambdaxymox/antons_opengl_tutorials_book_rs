@@ -1,4 +1,4 @@
-#version 410
+#version 460 core
 
 in vec2 st;
 uniform sampler2D tex;

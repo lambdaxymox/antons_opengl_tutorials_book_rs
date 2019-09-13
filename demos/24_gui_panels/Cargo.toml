@@ -2,12 +2,15 @@
 name = "gui_panels"
 version = "0.1.0"
 authors = ["LambdaXymox <lambda.xymox@gmail.com>"]
+editon = "2018"
 
 [dependencies]
-glfw = "0.23.0"
-gl = "0.10.0"
+glfw = "0.32.0"
 chrono = "0.4.2"
 scan_fmt = "0.1.3"
 stb_image = "0.2.2"
 png = "0.12.0"
 assimp = "0.3.1"
+
+[build-dependencies]
+gl_generator = "0.13.0"

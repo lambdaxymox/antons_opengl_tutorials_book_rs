@@ -1,4 +1,3 @@
-extern crate gl;
 extern crate glfw;
 extern crate chrono;
 extern crate stb_image;
@@ -7,6 +6,10 @@ extern crate assimp;
 
 #[macro_use] 
 extern crate scan_fmt;
+
+mod gl {
+    include!(concat!(env!("OUT_DIR"), "/gl_bindings.rs"));
+}
 
 mod gl_utils;
 mod graphics_math;
@@ -103,10 +106,10 @@ fn create_ground_plane_shaders(logger: &Logger, app: &mut AppState) {
         assert!(gp_sp > 0);
 
         // Get uniform locations of camera view and projection matrices.
-        let gp_view_mat_loc = gl::GetUniformLocation(gp_sp, "view".as_ptr() as *const i8);
+        let gp_view_mat_loc = gl::GetUniformLocation(gp_sp, gl_str("view").as_ptr());
         assert!(gp_view_mat_loc > -1);
 
-        let gp_proj_mat_loc = gl::GetUniformLocation(gp_sp, "proj".as_ptr() as *const i8);
+        let gp_proj_mat_loc = gl::GetUniformLocation(gp_sp, gl_str("proj").as_ptr());
         assert!(gp_proj_mat_loc > -1);
 
         // Set defaults for matrices
@@ -148,7 +151,8 @@ fn create_gui_shaders(logger: &Logger, app: &mut AppState) {
         gl::AttachShader(gui_sp, gui_fs);
         gl::LinkProgram(gui_sp);
         assert!(gui_sp > 0);
-        let gui_scale_loc = gl::GetUniformLocation(gui_sp, "gui_scale".as_ptr() as *const i8);
+
+        let gui_scale_loc = gl::GetUniformLocation(gui_sp, gl_str("gui_scale").as_ptr());
         assert!(gui_scale_loc > -1);
 
         app.gui_sp = gui_sp;

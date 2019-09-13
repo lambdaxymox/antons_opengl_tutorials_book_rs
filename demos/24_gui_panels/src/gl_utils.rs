@@ -6,7 +6,7 @@ use gl::types::{GLubyte, GLuint, GLchar, GLint, GLenum};
 use logger::Logger;
 
 use std::string::String;
-use std::ffi::CStr;
+use std::ffi::{CString, CStr};
 use std::ptr;
 use std::fs::File;
 use std::io::{Read, BufReader};
@@ -28,6 +28,11 @@ pub fn glubyte_ptr_to_string(cstr: *const GLubyte) -> String {
     unsafe {
         CStr::from_ptr(cstr as *const i8).to_string_lossy().into_owned()
     }
+}
+
+#[inline]
+pub fn gl_str(st: &str) -> CString {
+    CString::new(st).unwrap()
 }
 
 pub fn gl_type_to_string(gl_type: GLenum) -> &'static str {
